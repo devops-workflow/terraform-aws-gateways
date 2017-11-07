@@ -1,0 +1,27 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_eip.eip_nat" [label = "aws_eip.eip_nat", shape = "box"]
+		"[root] aws_internet_gateway.igw" [label = "aws_internet_gateway.igw", shape = "box"]
+		"[root] aws_nat_gateway.nat" [label = "aws_nat_gateway.nat", shape = "box"]
+		"[root] provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] aws_eip.eip_nat" -> "[root] provider.aws"
+		"[root] aws_eip.eip_nat" -> "[root] var.num_of_azs"
+		"[root] aws_internet_gateway.igw" -> "[root] provider.aws"
+		"[root] aws_internet_gateway.igw" -> "[root] var.environment"
+		"[root] aws_internet_gateway.igw" -> "[root] var.name"
+		"[root] aws_internet_gateway.igw" -> "[root] var.namespaced"
+		"[root] aws_internet_gateway.igw" -> "[root] var.tags"
+		"[root] aws_internet_gateway.igw" -> "[root] var.vpc_id"
+		"[root] aws_nat_gateway.nat" -> "[root] aws_eip.eip_nat"
+		"[root] aws_nat_gateway.nat" -> "[root] var.public_subnet_ids"
+		"[root] output.internet_gateway" -> "[root] aws_internet_gateway.igw"
+		"[root] output.nat_gateway_ids" -> "[root] aws_nat_gateway.nat"
+		"[root] output.nat_ips" -> "[root] aws_eip.eip_nat"
+		"[root] root" -> "[root] output.internet_gateway"
+		"[root] root" -> "[root] output.nat_gateway_ids"
+		"[root] root" -> "[root] output.nat_ips"
+	}
+}
+
